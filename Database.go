@@ -74,11 +74,11 @@ func (db* Database) InsertMany(database string, col string, doc []interface{})(i
 	return result
 }
 
-func (db *Database) QueryMany(database string, col string,filter interface{}) ([]bson.D) {
+func (db *Database) QueryMany(database string, col string,filter interface{}) ([]bson.M) {
 	_col := db.Client.Database(database).Collection(col)
 	db.Ctx, db.Cancel = context.WithTimeout(context.Background(), 10*time.Second)	
 	cusor, err := _col.Find(db.Ctx,filter)
-	result:=[] bson.D{}
+	result:=[] bson.M{}
 	if err==nil{
 		err=cusor.All(db.Ctx,&result)
 	}
